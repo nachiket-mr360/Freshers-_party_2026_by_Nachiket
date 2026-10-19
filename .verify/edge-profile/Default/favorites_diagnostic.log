@@ -1,0 +1,30 @@
+2026-10-19 19:15:33.522: [INFO] CurrentProfilePath: C:\College\Freshers\.verify\edge-profile\Default
+2026-10-19 19:15:33.522: [INFO] Profiles total count: 1
+2026-10-19 19:15:33.524: [INFO] Profile: name=Personal path=C:\College\Freshers\.verify\edge-profile\Default lastActive=2026-10-19T19:13:51.584Z
+2026-10-19 19:15:33.524: [INFO] LastUsedProfileDir: C:\College\Freshers\.verify\edge-profile\Default
+2026-10-19 19:15:33.524: [INFO] MostRecentlyActiveProfile: name=Personal path=C:\College\Freshers\.verify\edge-profile\Default lastActive=2026-10-19T19:13:51.584Z
+2026-10-19 19:15:33.524: [INFO] VisibilityChanged: 0
+2026-10-19 19:15:33.601: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:33.602: [INFO] OnDoneLoading sync enabled: 0
+2026-10-19 19:15:33.602: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-19 19:15:33.602: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-19 19:15:33.602: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-19 19:15:33.633: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:34.031: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:36.837: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:36.842: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:36.846: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:36.863: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:36.867: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:36.871: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-10-19 19:15:36.877: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 5
+2026-10-19 19:15:36.884: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 5
+2026-10-19 19:15:37.922: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 5
+2026-10-19 19:15:37.940: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 5
+2026-10-19 19:15:38.354: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 5
+2026-10-19 19:15:38.744: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 5
+2026-10-19 19:15:38.759: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 6
+2026-10-19 19:15:38.765: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 6
+2026-10-19 19:15:40.115: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 6
+2026-10-19 19:15:40.120: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 6
+2026-10-19 19:15:40.319: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 6

@@ -1,0 +1,5 @@
+2026/10/20-01:06:14.251 5e98 Creating DB C:\College\Freshers\.verify\edge-profile-d-third2\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/10/20-01:06:14.354 5e98 Reusing MANIFEST C:\College\Freshers\.verify\edge-profile-d-third2\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/10/20-01:06:23.262 6224 Level-0 table #5: started
+2026/10/20-01:06:23.293 6224 Level-0 table #5: 683273 bytes OK
+2026/10/20-01:06:23.300 6224 Delete type=0 #3
