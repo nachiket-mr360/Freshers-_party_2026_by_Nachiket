@@ -18,7 +18,7 @@ export function personalise(template: string, name: string): string {
 export interface StageMessage {
   /** Small label above the headline, e.g. "PROLOGUE". */
   kicker?: string;
-  /** Large display line. */
+  /** Large display line. Use `\n` for an intentional break. */
   title: string;
   /** Supporting body copy. */
   body: string;
@@ -52,13 +52,13 @@ export const experiences: Record<Category, StageMessage[]> = {
   third: [
     {
       kicker: 'Mission Briefing',
-      title: 'Your mission: make the new batch feel at home.',
+      title: 'Make the new batch feel at home.',
       body: 'You remember being the confused one at the gate, right? Someone guided you. Now it is your turn to be that someone for First Year.',
       actionLabel: 'I accept',
     },
     {
       kicker: 'Mission Accepted',
-      title: 'Welcome aboard, {name}. You are the seniors they will remember.',
+      title: 'Welcome aboard, {name}.',
       body: 'A smile at the corridor, a reply in the class group, a seat saved at the event — that is how a batch becomes a family. Start tonight.',
       actionLabel: 'Show me the invitation',
     },
@@ -66,8 +66,8 @@ export const experiences: Record<Category, StageMessage[]> = {
   fifth: [
     {
       kicker: 'Be Honest',
-      title: 'Have you finished your Freshers’ work, {name}?',
-      body: 'The batch is counting on you. Pick the answer that is closest to the truth — no judgement here.',
+      title: "Freshers' work.\nAll done?",
+      body: 'The batch is counting on you. Pick the answer closest to the truth—no judgement here.',
       actionLabel: '',
     },
   ],

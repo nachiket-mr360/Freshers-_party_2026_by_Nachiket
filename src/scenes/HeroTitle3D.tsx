@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useThree } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Text3D, Center } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
@@ -17,20 +17,19 @@ const FONT_URL = `${import.meta.env.BASE_URL}fonts/helvetiker_bold.typeface.json
 /**
  * Real extruded 3D typography for "FRESHERS 2026".
  *
- * Genuine THREE.ExtrudeGeometry text (via drei Text3D) with beveled, metallic
- * / frosted materials lit by the scene — NOT a flat rotated element. It performs
- * one full 360° horizontal turn on GSAP's main timeline and settles front-facing,
- * auto-scaled to fit the viewport on mobile and desktop.
+ * GSAP owns one cinematic 360° intro. After that tween completes, useFrame
+ * damps the same group toward the pointer — GSAP is killed so it cannot
+ * overwrite interactive orientation.
  */
 export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
   const outer = useRef<THREE.Group>(null);
   const fitter = useRef<THREE.Group>(null);
   const base = useRef<{ w: number; h: number } | null>(null);
+  const introDone = useRef(reducedMotion);
+  const target = useRef({ x: 0, y: 0 });
   const viewport = useThree((s) => s.viewport);
   const [fit, setFit] = useState(1);
 
-  // Measure the unscaled extruded width/height once, then derive a responsive
-  // scale so the title fits the visible world on mobile and desktop.
   useLayoutEffect(() => {
     const g = fitter.current;
     if (!g) return;
@@ -55,25 +54,67 @@ export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
     if (!g) return;
 
     if (reducedMotion) {
-      g.rotation.y = 0;
+      g.rotation.set(0, 0, 0);
+      introDone.current = true;
       return;
     }
 
-    // One complete, cinematic horizontal revolution that settles at the front.
+    introDone.current = false;
     const tween = gsap.fromTo(
       g.rotation,
       { y: -Math.PI * 2 },
-      { y: 0, duration, ease: 'power2.inOut' },
+      {
+        y: 0,
+        duration,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          introDone.current = true;
+        },
+      },
     );
     return () => {
       tween.kill();
     };
   }, [duration, reducedMotion]);
 
+  // Desktop/pen pointer only — touch is ignored so page scroll stays intact.
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    const onMove = (event: PointerEvent) => {
+      if (!introDone.current) return;
+      if (event.pointerType === 'touch') return;
+      const nx = (event.clientX / Math.max(window.innerWidth, 1)) * 2 - 1;
+      const ny = (event.clientY / Math.max(window.innerHeight, 1)) * 2 - 1;
+      target.current.y = nx * 0.55;
+      target.current.x = THREE.MathUtils.clamp(-ny * 0.28, -0.32, 0.32);
+    };
+
+    const onIdle = () => {
+      target.current.x = 0;
+      target.current.y = 0;
+    };
+
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('blur', onIdle);
+    document.addEventListener('mouseleave', onIdle);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('blur', onIdle);
+      document.removeEventListener('mouseleave', onIdle);
+    };
+  }, [reducedMotion]);
+
+  useFrame((_, delta) => {
+    const g = outer.current;
+    if (!g || reducedMotion || !introDone.current) return;
+    const d = Math.min(delta, 0.05);
+    g.rotation.x = THREE.MathUtils.damp(g.rotation.x, target.current.x, 3.4, d);
+    g.rotation.y = THREE.MathUtils.damp(g.rotation.y, target.current.y, 3.4, d);
+  });
+
   return (
     <group ref={outer}>
-      {/* Each word is centred on its own so the stacked lockup stays balanced,
-          and the whole group pivots through its middle during the 360° turn. */}
       <group ref={fitter} scale={fit}>
         <Center position={[0, 0.72, 0]}>
           <Text3D
@@ -90,17 +131,15 @@ export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
           >
             {eventTitleParts.primary}
             <meshPhysicalMaterial
-              color="#cdd7ff"
-              metalness={0.92}
-              roughness={0.26}
+              color="#d4dcff"
+              metalness={0.9}
+              roughness={0.24}
               clearcoat={1}
-              clearcoatRoughness={0.28}
-              reflectivity={0.6}
-              envMapIntensity={1.35}
-              /* Faint self-illumination keeps the front-facing faces readable
-                 — metallic-only faces read near-black head-on. */
-              emissive="#1c2447"
-              emissiveIntensity={0.55}
+              clearcoatRoughness={0.26}
+              reflectivity={0.62}
+              envMapIntensity={1.42}
+              emissive="#2a3558"
+              emissiveIntensity={0.64}
             />
           </Text3D>
         </Center>
@@ -121,14 +160,14 @@ export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
             {eventTitleParts.accent}
             <meshPhysicalMaterial
               color={palette.violet}
-              metalness={0.9}
-              roughness={0.22}
+              metalness={0.88}
+              roughness={0.2}
               clearcoat={1}
-              clearcoatRoughness={0.2}
-              reflectivity={0.7}
-              envMapIntensity={1.55}
-              emissive="#241457"
-              emissiveIntensity={0.6}
+              clearcoatRoughness={0.18}
+              reflectivity={0.72}
+              envMapIntensity={1.62}
+              emissive="#2c1a68"
+              emissiveIntensity={0.68}
             />
           </Text3D>
         </Center>
