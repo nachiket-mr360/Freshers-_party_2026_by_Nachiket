@@ -12,7 +12,7 @@ interface Props {
   reducedMotion?: boolean;
 }
 
-const FONT_URL = '/fonts/helvetiker_bold.typeface.json';
+const FONT_URL = `${import.meta.env.BASE_URL}fonts/helvetiker_bold.typeface.json`;
 
 /**
  * Real extruded 3D typography for "FRESHERS 2026".
