@@ -81,4 +81,4 @@ await clickSel('.stage--scene .enter-cta');
 await sleep(1100);
 await probe('invitation');
 
-w
+ws.close(); child.kill(); process.exit(0);

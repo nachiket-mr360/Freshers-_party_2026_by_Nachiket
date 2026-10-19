@@ -39,9 +39,9 @@ export const eventInfo = {
  */
 export const creatorCredit = {
   madeBy: 'MADE BY',
-  name: 'NACHIKET MR.360',
+  name: 'NACHIKET_MR.360',
   /** The full, exact single-line form. */
-  full: 'MADE BY NACHIKET MR.360',
+  full: 'MADE BY NACHIKET_MR.360',
 } as const;
 
 /** The four visitor categories offered to the guest. */

@@ -289,3 +289,4 @@ console.log(report.join('\n'));
 
 ws.close();
 child.kill();
+process.exit(0);

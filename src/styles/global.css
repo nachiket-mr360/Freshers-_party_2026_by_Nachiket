@@ -754,6 +754,10 @@ button {
   max-width: 62ch;
 }
 
+.stage--third .scene__check {
+  padding: 0.55rem 1rem;
+}
+
 /* Fifth-semester choices */
 .scene__choices {
   display: grid;
@@ -928,14 +932,14 @@ button {
 
 .finale__line--name {
   font-weight: 800;
-  /* Small-screen floor keeps "NACHIKET MR.360" inside narrow viewports
+  /* Small-screen floor keeps "NACHIKET_MR.360" inside narrow viewports
      (320px) instead of overflowing the way the previous clamp did. */
-  font-size: clamp(1.5rem, 8vw, 4.5rem);
+  font-size: clamp(1.25rem, 7.2vw, 4.2rem);
   line-height: 1.05;
   letter-spacing: 0.01em;
-  max-width: 92vw;
+  max-width: 94vw;
   margin-inline: auto;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   background: linear-gradient(180deg, #fff5df 0%, var(--gold) 45%, #b07a2b 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1089,3 +1093,4 @@ button {
   .stage--scene {
     padding: clamp(1.25rem, 4vh, 2rem) clamp(1rem, 5vw, 2rem);
   }
+}

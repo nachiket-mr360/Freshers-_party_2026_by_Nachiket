@@ -8,7 +8,7 @@ import { creatorCredit } from '@/content/eventConfig';
  * Cinematic creator-credit finale (spec §13 — E2 + E3).
  *
  * The WebGL gold particle signature gathers behind this overlay while the exact
- * credit ("MADE BY" then "NACHIKET MR.360") is revealed with a light sweep.
+ * credit ("MADE BY" then "NACHIKET_MR.360") is revealed with a light sweep.
  * The text stays fully readable and is real HTML. A working replay is offered.
  */
 export function CreatorFinale() {
