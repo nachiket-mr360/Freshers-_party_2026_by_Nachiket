@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/Freshers-_party_2026_by_Nachiket/',
   plugins: [react()],
   resolve: {
     alias: {
