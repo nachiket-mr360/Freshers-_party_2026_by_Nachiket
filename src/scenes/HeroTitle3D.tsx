@@ -2,7 +2,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text3D, Center } from '@react-three/drei';
 import * as THREE from 'three';
-import gsap from 'gsap';
 import { eventTitleParts } from '@/content/eventConfig';
 import { palette } from './sceneConfig';
 
@@ -14,18 +13,26 @@ interface Props {
 
 const FONT_URL = `${import.meta.env.BASE_URL}fonts/helvetiker_bold.typeface.json`;
 
+/** GSAP power2.inOut equivalent — used in the render loop so mobile WebGL stays in sync. */
+function power2InOut(t: number) {
+  return t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+}
+
 /**
  * Real extruded 3D typography for "FRESHERS 2026".
  *
- * GSAP owns one cinematic 360° intro. After that tween completes, useFrame
- * damps the same group toward the pointer — GSAP is killed so it cannot
- * overwrite interactive orientation.
+ * One cinematic 360° yaw is driven from useFrame (not GSAP-on-Euler) so the
+ * spin cannot collapse when Euler angles wrap, and it cannot finish before
+ * the extruded glyphs exist on slower mobile GPUs. After it completes,
+ * pointer damping takes over on mouse/pen only.
  */
 export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
   const outer = useRef<THREE.Group>(null);
   const fitter = useRef<THREE.Group>(null);
   const base = useRef<{ w: number; h: number } | null>(null);
   const introDone = useRef(reducedMotion);
+  const introElapsed = useRef(0);
+  const geometryReady = useRef(false);
   const target = useRef({ x: 0, y: 0 });
   const viewport = useThree((s) => s.viewport);
   const [fit, setFit] = useState(1);
@@ -38,6 +45,8 @@ export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
       const size = new THREE.Box3().setFromObject(g).getSize(new THREE.Vector3());
       if (size.x === 0) return;
       base.current = { w: size.x, h: size.y };
+      geometryReady.current = true;
+      introElapsed.current = 0;
     }
 
     const { w, h } = base.current;
@@ -50,32 +59,11 @@ export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
   }, [viewport.width, viewport.height]);
 
   useEffect(() => {
+    introDone.current = reducedMotion;
+    introElapsed.current = 0;
     const g = outer.current;
-    if (!g) return;
-
-    if (reducedMotion) {
-      g.rotation.set(0, 0, 0);
-      introDone.current = true;
-      return;
-    }
-
-    introDone.current = false;
-    const tween = gsap.fromTo(
-      g.rotation,
-      { y: -Math.PI * 2 },
-      {
-        y: 0,
-        duration,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          introDone.current = true;
-        },
-      },
-    );
-    return () => {
-      tween.kill();
-    };
-  }, [duration, reducedMotion]);
+    if (reducedMotion && g) g.rotation.set(0, 0, 0);
+  }, [reducedMotion]);
 
   // Desktop/pen pointer only — touch is ignored so page scroll stays intact.
   useEffect(() => {
@@ -107,8 +95,30 @@ export function HeroTitle3D({ duration = 4.6, reducedMotion = false }: Props) {
 
   useFrame((_, delta) => {
     const g = outer.current;
-    if (!g || reducedMotion || !introDone.current) return;
+    if (!g) return;
     const d = Math.min(delta, 0.05);
+
+    if (reducedMotion) {
+      g.rotation.set(0, 0, 0);
+      return;
+    }
+
+    if (!introDone.current) {
+      if (!geometryReady.current) return;
+      introElapsed.current += d;
+      const t = Math.min(introElapsed.current / duration, 1);
+      const eased = power2InOut(t);
+      // Yaw only: 0 → full turn → rest at 0 (front-facing).
+      g.rotation.x = 0;
+      g.rotation.z = 0;
+      g.rotation.y = (eased - 1) * Math.PI * 2;
+      if (t >= 1) {
+        g.rotation.y = 0;
+        introDone.current = true;
+      }
+      return;
+    }
+
     g.rotation.x = THREE.MathUtils.damp(g.rotation.x, target.current.x, 3.4, d);
     g.rotation.y = THREE.MathUtils.damp(g.rotation.y, target.current.y, 3.4, d);
   });
