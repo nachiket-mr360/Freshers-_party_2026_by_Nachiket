@@ -31,6 +31,8 @@ export const eventInfo = {
     line1: 'Faculty of Computer Applications',
     line2: 'BCA (Co-ed)',
   },
+  /** Absolute start instant in IST — countdown never uses the visitor's local zone. */
+  startsAt: '2026-10-31T10:00:00+05:30',
 } as const;
 
 /**
@@ -38,10 +40,10 @@ export const eventInfo = {
  * punctuation must be preserved everywhere it is displayed.
  */
 export const creatorCredit = {
-  madeBy: 'MADE BY',
-  name: 'NACHIKET_MR.360',
+  madeBy: 'BCA SEM V PRESENTS',
+  name: 'event title',
   /** The full, exact single-line form. */
-  full: 'MADE BY NACHIKET_MR.360',
+  full: 'BCA SEM V PRESENTS event title',
 } as const;
 
 /** The four visitor categories offered to the guest. */

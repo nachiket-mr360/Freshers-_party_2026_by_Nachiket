@@ -84,6 +84,10 @@ function ParticleLayer({
     const t = state.clock.elapsedTime;
     ref.current.rotation.y = t * speed;
     ref.current.rotation.x = Math.sin(t * 0.1) * 0.15;
+    const mat = ref.current.material;
+    if (!Array.isArray(mat) && 'opacity' in mat) {
+      mat.opacity = 0.78 + Math.sin(t * 1.4 + depth) * 0.12;
+    }
   });
 
   return (
@@ -103,6 +107,8 @@ function ParticleLayer({
 
 export function BackgroundScene({ pointer, lowPower, reducedMotion }: Props) {
   const formsRef = useRef<THREE.Group>(null);
+  const sphereRef = useRef<THREE.Mesh>(null);
+  const knotRef = useRef<THREE.Mesh>(null);
   const moodRef = useRef<THREE.PointLight>(null);
   const { stage, category } = useExperience();
 
@@ -120,6 +126,14 @@ export function BackgroundScene({ pointer, lowPower, reducedMotion }: Props) {
     if (!reducedMotion) {
       formsRef.current.rotation.y = t * 0.05;
       formsRef.current.position.y = Math.sin(t * 0.2) * 0.3;
+      if (sphereRef.current) {
+        sphereRef.current.rotation.y = t * 0.08;
+        sphereRef.current.rotation.x = t * 0.03;
+      }
+      if (knotRef.current) {
+        knotRef.current.rotation.x = t * 0.12;
+        knotRef.current.position.y = Math.sin(t * 0.35) * 0.18;
+      }
     }
     // Very subtle pointer-driven lean (never violent — spec §7).
     const px = pointer.current?.x ?? 0;
@@ -211,7 +225,7 @@ export function BackgroundScene({ pointer, lowPower, reducedMotion }: Props) {
             opacity={0.55}
           />
         </mesh>
-        <mesh position={[5.5, -2, -4]}>
+        <mesh ref={knotRef} position={[5.5, -2, -4]}>
           <torusKnotGeometry args={[1.1, 0.3, lowPower ? 96 : 160, 16]} />
           <MeshDistortMaterial
             color={palette.violet}
@@ -223,7 +237,7 @@ export function BackgroundScene({ pointer, lowPower, reducedMotion }: Props) {
             opacity={0.5}
           />
         </mesh>
-        <mesh position={[3.5, 3, -7]}>
+        <mesh ref={sphereRef} position={[3.5, 3, -7]}>
           <sphereGeometry args={[1.2, 32, 32]} />
           <meshStandardMaterial
             color={palette.fog}

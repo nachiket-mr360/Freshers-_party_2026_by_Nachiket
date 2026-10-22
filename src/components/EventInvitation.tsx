@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 import { useExperience } from '@/state/ExperienceContext';
-import { useEnterReveal } from '@/hooks/useEnterReveal';
+import { useInvitationReveal } from '@/hooks/useInvitationReveal';
 import { eventInfo, eventTitleParts } from '@/content/eventConfig';
+import { EventCountdown } from './EventCountdown';
 
 /**
  * Event invitation — a full-screen cinematic composition (spec §12), not a
@@ -11,31 +12,38 @@ import { eventInfo, eventTitleParts } from '@/content/eventConfig';
 export function EventInvitation() {
   const { name, goToStage } = useExperience();
   const ref = useRef<HTMLDivElement>(null);
-  useEnterReveal(ref);
+  useInvitationReveal(ref);
 
   return (
     <section className="stage stage--scene stage--invitation" aria-label="The invitation">
       <div className="scene__scrim" aria-hidden="true" />
       <div className="scene__inner" ref={ref}>
-        <p className="invitation__personal" data-enter>
+        <p className="invitation__personal" data-inv="greeting">
           {name ? `${name}, you are invited` : 'You are invited'}
         </p>
 
-        <h2 className="invitation__title" data-enter>
-          <span className="invitation__title-primary">{eventTitleParts.primary}</span>
-          <span className="invitation__title-accent">{eventTitleParts.accent}</span>
+        <h2 className="invitation__title">
+          <span className="invitation__title-primary" data-inv="freshers">
+            {eventTitleParts.primary}
+          </span>
+          <span className="invitation__title-accent-wrap">
+            <span className="invitation__title-accent" data-inv="year">
+              {eventTitleParts.accent}
+            </span>
+            <span className="invitation__year-sweep" data-inv="sweep" aria-hidden="true" />
+          </span>
         </h2>
 
         <dl className="invitation__details">
-          <div className="invitation__detail" data-enter>
+          <div className="invitation__detail" data-inv="detail">
             <dt>Date</dt>
             <dd>{eventInfo.dateLabel}</dd>
           </div>
-          <div className="invitation__detail" data-enter>
+          <div className="invitation__detail" data-inv="detail">
             <dt>Time</dt>
             <dd>{eventInfo.timeLabel}</dd>
           </div>
-          <div className="invitation__detail" data-enter>
+          <div className="invitation__detail" data-inv="detail">
             <dt>Venue</dt>
             <dd>
               {eventInfo.venue.name}
@@ -45,14 +53,16 @@ export function EventInvitation() {
           </div>
         </dl>
 
-        <div className="invitation__organizer" data-enter>
+        <EventCountdown />
+
+        <div className="invitation__organizer" data-inv="organizer">
           <span className="invitation__organizer-label">Organized by</span>
           <p className="invitation__organizer-name">
             <strong>{eventInfo.organizer.line1}</strong> — {eventInfo.organizer.line2}
           </p>
         </div>
 
-        <div className="scene__actions" data-enter>
+        <div className="scene__actions" data-inv="actions">
           <button type="button" className="btn btn--ghost" onClick={() => goToStage('experience')}>
             Back
           </button>

@@ -314,8 +314,12 @@ button {
   touch-action: manipulation;
 }
 
-.btn:active {
-  transform: translateY(1px) scale(0.99);
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97);
 }
 
 .btn:disabled {
@@ -400,9 +404,18 @@ button {
   min-height: 48px;
 }
 
+.enter-cta {
+  transform: scale(1);
+}
+
 .enter-cta:hover {
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px -12px rgba(123, 92, 255, 0.8);
+  box-shadow: 0 0 40px -12px rgba(123, 92, 255, 0.8), 0 0 28px -8px rgba(243, 198, 117, 0.55);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.enter-cta:active {
+  transform: scale(0.97);
 }
 
 .enter-cta__arrow {
@@ -751,6 +764,12 @@ button {
   font-weight: 600;
 }
 
+/* Each rendered line is its own 3D plane; transforms never shift layout. */
+.scene__title .cine-line {
+  display: inline-block;
+  backface-visibility: hidden;
+}
+
 .scene__title {
   font-family: var(--font-display);
   font-weight: 800;
@@ -932,12 +951,89 @@ button {
   color: transparent;
 }
 
+.invitation__title-accent-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
 .invitation__title-accent {
   color: var(--gold);
   background: linear-gradient(180deg, #ffe4b0, var(--gold) 60%, #b5772e);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.invitation__year-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 35%,
+    rgba(255, 228, 176, 0.55) 50%,
+    transparent 65%
+  );
+}
+
+.countdown {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.35rem, 1.6vw, 0.7rem);
+  flex-wrap: wrap;
+  width: min(640px, 100%);
+  margin: 0.2rem 0 0.4rem;
+}
+
+.countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3.6rem;
+}
+
+.countdown__value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 4.4vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #e8ecff;
+  text-shadow: 0 0 22px rgba(123, 92, 255, 0.45), 0 0 18px rgba(243, 198, 117, 0.25);
+}
+
+.countdown__label {
+  margin-top: 0.35rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.countdown__sep {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 3.6vw, 1.6rem);
+  color: var(--gold);
+  opacity: 0.7;
+  transform: translateY(-0.55rem);
+}
+
+.countdown--message {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  max-width: 28ch;
+}
+
+.enter-cta:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
 .invitation__rule {
@@ -1196,6 +1292,13 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .btn:hover:not(:disabled),
+  .btn:active:not(:disabled),
+  .enter-cta:hover,
+  .enter-cta:active {
+    transform: none;
   }
 
   .fallback-bg__glow {

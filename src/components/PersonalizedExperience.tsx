@@ -1,6 +1,6 @@
-import { useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { Fragment, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { useExperience } from '@/state/ExperienceContext';
-import { useEnterReveal } from '@/hooks/useEnterReveal';
+import { useCinematicReveal } from '@/hooks/useCinematicReveal';
 import {
   personalise,
   experiences,
@@ -17,10 +17,10 @@ function TitleLines({ text }: { text: string }) {
   return (
     <>
       {lines.map((line, i) => (
-        <span key={i}>
-          {line}
+        <Fragment key={i}>
+          <span className="cine-line">{line}</span>
           {i < lines.length - 1 ? <br /> : null}
-        </span>
+        </Fragment>
       ))}
     </>
   );
@@ -43,7 +43,7 @@ function Scene({
   revealKey: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  useEnterReveal(ref, [revealKey]);
+  useCinematicReveal(ref, [revealKey]);
 
   return (
     <section
@@ -76,24 +76,29 @@ function SceneBody({
   return (
     <>
       {message.kicker && (
-        <p className="scene__kicker" data-enter>
+        <p className="scene__kicker" data-cine="kicker">
           {message.kicker}
         </p>
       )}
-      <h2 className="scene__title" data-enter>
+      <h2 className="scene__title" data-cine="heading">
         <TitleLines text={personalise(message.title, name)} />
       </h2>
       {personalise(message.body, name)
         .split(/\n\n+/)
-        .map((paragraph, i) => (
-          <p key={i} className="scene__body" data-enter>
+        .map((paragraph, i, all) => (
+          <p
+            key={i}
+            className="scene__body"
+            data-cine="content"
+            data-closing={all.length > 1 && i === all.length - 1 ? '' : undefined}
+          >
             {paragraph}
           </p>
         ))}
 
       {extra}
 
-      <div className="scene__actions" data-enter>
+      <div className="scene__actions" data-cine="actions">
         {onBack && (
           <button type="button" className="btn btn--ghost" onClick={onBack}>
             Back

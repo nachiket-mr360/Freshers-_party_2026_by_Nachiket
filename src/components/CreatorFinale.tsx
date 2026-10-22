@@ -65,7 +65,7 @@ export function CreatorFinale() {
             View invitation again
           </button>
           <button type="button" className="btn btn--primary" onClick={replay}>
-            Replay the experience
+            Watch Again
           </button>
         </div>
       </div>

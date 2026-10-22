@@ -49,12 +49,14 @@ export const experiences: Record<Category, StageMessage[]> = {
       body: 'Hey, {name}. ❤️\n\nRemember when this campus was new to you? When familiar faces were strangers, and even the simplest things felt a little confusing?\n\nSomewhere along the way, you found your people, collected a few embarrassing memories, and learned how to survive college one day at a time. 😂\n\nNow, there\'s a new batch standing where you once stood.\n\nAnd you have something wonderful to give them: the feeling that they belong here, too.',
       actionLabel: 'Continue',
     },
-    {
-      kicker: 'Your Turn Now',
-      title: 'Be the Senior You Once Needed',
-      body: '{name}, you survived the assignments, the attendance tension, the scoldings, and those legendary "I\'ll study from tomorrow" promises. 😂\n\nBut when you look back, I bet the best memories aren\'t just about surviving college.\n\nThey\'re about the friends who shared their notes, the people who waited for you after class, and the ones who made even a terrible day worth laughing about.\n\nNow imagine being that person for a fresher.\n\nSay hello. Help them when they\'re confused. Include them when they\'re standing alone.\n\nYou might forget these little things by tomorrow.\n\nBut they might remember your kindness for the rest of their college life. ❤️',
-      actionLabel: 'Show me the invitation',
-    },
+   
+{
+  kicker: 'Your Turn Now',
+  title: 'Be the Senior You Once Needed',
+  body: '{name}, we survived assignments, attendance tension, and endless "I’ll study from tomorrow" promises. 😂❤️\n\nBut our best memories came from the friends who made college special.\n\nNow, be that person for a fresher. Say hello, lend a hand, and make them feel welcome.\n\nYou may forget these little moments, but they might remember your kindness forever. ❤️',
+  actionLabel: 'Show me the invitation',
+},
+
   ],
   fifth: [
 {
@@ -63,18 +65,20 @@ export const experiences: Record<Category, StageMessage[]> = {
   body: 'Hey, {name}. ❤️\n\nRemember when we were juniors, looking up to our seniors and wondering when it would be our turn?\n\nBetween assignments, scoldings, last-minute submissions, and laughter with friends, we grew up without even realizing it.\n\nAnd now, the juniors look at us the same way we once looked at our seniors.\n\nFunny how quickly our turn came, isn’t it? ❤️',
   actionLabel: 'Continue',
 },
+
 {
   kicker: 'Before the Chapter Closes',
   title: 'We Didn’t Know These Days Would Matter So Much.',
-  body: '{name}, one day, we’ll leave these classrooms for the last time.\n\nWe’ll miss the laughter in the corridors, the friends who made ordinary days special, and even the things we once complained about.\n\nWe spent so much time waiting for the next semester, the next holiday, the next milestone… never realizing these were the days we’d someday wish to relive.\n\nWe may forget the lectures, but we’ll never forget the people who made these years ours. ❤️',
+  body: '{name}, one day, we’ll leave these classrooms and miss the laughter, the friendships, and even the moments we once complained about.\n\nWe may forget the lectures, but never the people who made these years unforgettable. ❤️',
   actionLabel: 'Continue',
 },
 {
   kicker: 'Our Last Chapter as Seniors',
   title: 'Let’s Give Them a Beginning to Remember.',
-body: 'Nachiket, someday, new faces will fill these classrooms, beginning the journey we once did.\n\nThey may never know our stories, but they’ll remember how we made them feel.\n\nSo let’s guide them, stand beside them, and give this event everything we’ve got. And if things get chaotic… well, we’re seniors—we’ve survived enough college drama! 😂❤️\n\nOur time as seniors may end, but the kindness we leave behind can last forever. Let’s make this final chapter count and give the juniors a beginning worth remembering. ❤️'
-,  actionLabel: 'Continue to the invitation',
+  body: '{name}, we once stood where the juniors stand today.\n\nLet’s guide them, make them feel welcome, and give them memories worth keeping. After all, we’ve survived enough college drama! 😂❤️',
+  actionLabel: 'Continue to the invitation',
 },
+
   ],
   faculty: [
   
