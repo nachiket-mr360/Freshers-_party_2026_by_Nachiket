@@ -1,4 +1,5 @@
 import { ExperienceProvider } from '@/state/ExperienceContext';
+import { OpeningSequenceProvider } from '@/state/OpeningSequenceContext';
 import { ExperienceCanvas } from '@/scenes/ExperienceCanvas';
 import { StageOverlay } from '@/components/StageOverlay';
 import { ExperienceControls } from '@/components/ExperienceControls';
@@ -11,26 +12,25 @@ export default function App() {
 
   return (
     <ExperienceProvider>
-      <div className="app">
-        {/* Layer 1: the immersive world (WebGL or CSS fallback). */}
-        <div className="app__scene">
-          {webglSupported ? (
-            <CanvasErrorBoundary fallback={<FallbackBackground />}>
-              <ExperienceCanvas />
-            </CanvasErrorBoundary>
-          ) : (
-            <FallbackBackground />
-          )}
+      <OpeningSequenceProvider>
+        <div className="app">
+          <div className="app__scene">
+            {webglSupported ? (
+              <CanvasErrorBoundary fallback={<FallbackBackground />}>
+                <ExperienceCanvas />
+              </CanvasErrorBoundary>
+            ) : (
+              <FallbackBackground />
+            )}
+          </div>
+
+          <ExperienceControls />
+
+          <main className="app__overlay" id="main">
+            <StageOverlay />
+          </main>
         </div>
-
-        {/* Layer 2: discreet journey chrome. */}
-        <ExperienceControls />
-
-        {/* Layer 3: all content as accessible HTML. */}
-        <main className="app__overlay" id="main">
-          <StageOverlay />
-        </main>
-      </div>
+      </OpeningSequenceProvider>
     </ExperienceProvider>
   );
 }

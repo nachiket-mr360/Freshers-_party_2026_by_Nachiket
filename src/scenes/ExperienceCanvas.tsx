@@ -14,12 +14,14 @@ import { ParticleSignature } from './ParticleSignature';
 import { HeroTitle3D } from './HeroTitle3D';
 import { INTRO_DURATION } from './sceneConfig';
 import { useExperience } from '@/state/ExperienceContext';
+import { useOpeningSequence } from '@/state/OpeningSequenceContext';
 import { useMediaFlags, useReducedMotion } from '@/hooks/useEnvironment';
 
 export function ExperienceCanvas() {
   const reducedMotion = useReducedMotion();
   const { lowPower } = useMediaFlags();
   const { stage } = useExperience();
+  const { titleVisible } = useOpeningSequence();
   const pointer = useRef({ x: 0, y: 0 });
   const [frameloop, setFrameloop] = useState<'always' | 'never'>('always');
 
@@ -52,7 +54,7 @@ export function ExperienceCanvas() {
           reducedMotion={reducedMotion}
         />
         <CameraRig pointer={pointer} reducedMotion={reducedMotion} />
-        {stage === 'hero' && (
+        {stage === 'hero' && titleVisible && (
           <HeroTitle3D duration={INTRO_DURATION} reducedMotion={reducedMotion} />
         )}
         {stage === 'finale' && (
