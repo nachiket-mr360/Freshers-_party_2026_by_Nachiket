@@ -38,7 +38,7 @@ export const experiences: Record<Category, StageMessage[]> = {
     {
       kicker: 'You Belong Here',
       title: 'Welcome to the Real Adventure!',
-      body: '{name}, enjoy these peaceful days while they last. 😂❤️\n\nSoon, you\'ll be saying, "Sir, I\'ll submit the assignment tomorrow!" for the third time, wondering how attendance became your biggest enemy, and laughing with friends five minutes before an exam you haven\'t studied for.\n\nBut somewhere between those deadlines, scoldings, silly punishments, and endless corridor conversations, something beautiful happens.\n\nStrangers become friends. Friends become family. And ordinary college days become memories you\'ll wish you could live again.\n\nOne day, you\'ll miss even the days you complained about. So laugh a little, make mistakes, and make these years count.\n\nMay Sharnbasva give you memories that make you smile long after you\'ve left. ❤️',
+      body: '{name}, enjoy these peaceful days… because college life is about to get interesting. 😂❤️\n\nSoon, you’ll be promising your professors, "Sir, I’ll submit it tomorrow!" while assignments pile up, attendance becomes your biggest enemy, and your friends turn even the most stressful days into hilarious memories.\n\nBefore you know it, the people sitting beside you today will become the ones you miss tomorrow, and these everyday corridors will hold stories you’ll tell for years.\n\nSo laugh, make friends, and cherish the little moments. Because one day, you won’t wish for fewer assignments… you’ll wish for just one more day here with everyone.\n\nMay Sharnbasva give you memories that make you smile long after you’ve left. ❤️',
       actionLabel: 'Reveal my invitation',
     },
   ],
@@ -57,37 +57,38 @@ export const experiences: Record<Category, StageMessage[]> = {
     },
   ],
   fifth: [
-    {
-      kicker: 'Before We Turn the Page',
-      title: 'Once, We Were Them.',
-      body: 'Hey, {name}. ❤️\n\nRemember when we were the juniors, looking up to our seniors and wondering what college life had in store for us and when we would become seniors ourselves?\n\nSomewhere between the assignments, the scoldings, the last-minute submissions, and the laughter with friends, we grew up a little.\n\nAnd somehow, the days we thought would last forever have brought us here.\n\nNow, the juniors are looking at us the way we once looked at our seniors.\n\nFunny how quickly our turn came, isn\'t it?',
-      actionLabel: 'Continue',
-    },
-    {
-      kicker: 'Before the Chapter Closes',
-      title: 'We Didn\'t Know These Days Would Matter So Much.',
-      body: '{name}, one day, we\'ll leave these classrooms for the last time.\n\nWe\'ll miss the friends who made ordinary days special, the laughter in the corridors, and even the little things we complained about.\n\nWe spent so much time waiting for the next semester, the next holiday, the next milestone.\n\nAnd somewhere along the way, the days we were waiting to finish became the days we wish we could keep.\n\nWe might forget some lectures and assignments, but we\'ll carry the memories of the people who made these years ours. ❤️',
-      actionLabel: 'Continue',
-    },
-    {
-      kicker: 'Our Last Chapter as Seniors',
-      title: 'Let\'s Give Them a Beginning to Remember.',
-      body: '{name}, someday, these classrooms will fill with new faces. Someone else will sit in our favourite places, laugh in these corridors, and begin a journey just like ours.\n\nThey might never know all our stories. They might never know how much this place meant to us.\n\nBut they\'ll remember how we made them feel when they arrived.\n\nNow, it\'s our turn to welcome the next batch before our own journey moves towards its end.\n\nLet\'s guide them, stand beside them, and make them feel welcome. Let\'s carry our responsibilities together and give this event everything we\'ve got.\n\nAnd if things get chaotic, well... we\'re experienced enough to handle a little college drama by now. 😂\n\nNow, we have one more chance to give something back.\n\nSo let\'s stand together, enjoy this final chapter as seniors, and give the juniors a beginning they can look back on with a smile.\n\nBecause the most beautiful way to end our chapter is to help someone else begin theirs. ❤️\n\nWe may not remain seniors forever, but the kindness we leave behind can outlast our time here.\n\nLet\'s make this last one count.',
-      actionLabel: 'Continue to the invitation',
-    },
+{
+  kicker: 'Before We Turn the Page',
+  title: 'Once, We Were Them.',
+  body: 'Hey, {name}. ❤️\n\nRemember when we were juniors, looking up to our seniors and wondering when it would be our turn?\n\nBetween assignments, scoldings, last-minute submissions, and laughter with friends, we grew up without even realizing it.\n\nAnd now, the juniors look at us the same way we once looked at our seniors.\n\nFunny how quickly our turn came, isn’t it? ❤️',
+  actionLabel: 'Continue',
+},
+{
+  kicker: 'Before the Chapter Closes',
+  title: 'We Didn’t Know These Days Would Matter So Much.',
+  body: '{name}, one day, we’ll leave these classrooms for the last time.\n\nWe’ll miss the laughter in the corridors, the friends who made ordinary days special, and even the things we once complained about.\n\nWe spent so much time waiting for the next semester, the next holiday, the next milestone… never realizing these were the days we’d someday wish to relive.\n\nWe may forget the lectures, but we’ll never forget the people who made these years ours. ❤️',
+  actionLabel: 'Continue',
+},
+{
+  kicker: 'Our Last Chapter as Seniors',
+  title: 'Let’s Give Them a Beginning to Remember.',
+body: 'Nachiket, someday, new faces will fill these classrooms, beginning the journey we once did.\n\nThey may never know our stories, but they’ll remember how we made them feel.\n\nSo let’s guide them, stand beside them, and give this event everything we’ve got. And if things get chaotic… well, we’re seniors—we’ve survived enough college drama! 😂❤️\n\nOur time as seniors may end, but the kindness we leave behind can last forever. Let’s make this final chapter count and give the juniors a beginning worth remembering. ❤️'
+,  actionLabel: 'Continue to the invitation',
+},
   ],
   faculty: [
-    {
-      kicker: 'A Note of Gratitude',
-      title: 'We\'re Glad You\'re Part of Our Journey.',
-      body: 'Dear {name}, ❤️\n\nWe came to college to build our future. Somewhere along the way, people like you became part of that future.\n\nYou corrected us when we were wrong, guided us when we were lost, and pushed us when we doubted ourselves.\n\nPerhaps to you, these were just ordinary days of teaching.\n\nBut to us, they were little steps towards becoming someone we once only dreamed of being.\n\nSome thank-yous remain unspoken, not because we don\'t feel them, but because we don\'t always know how to express them.',
-      actionLabel: 'Continue',
-    },
-    {
-      kicker: 'Beyond the Classroom',
-      title: 'One Day, We\'ll Understand It All.',
-      body: 'Dear {name}, ❤️\n\nFor you, batches may come and go. But for every student, these years become a part of who they are.\n\nWe may forget a few lessons, but we\'ll remember who stood by us when we struggled, who believed in us when we couldn\'t believe in ourselves, and who prepared us for a world we were still afraid to face.\n\nYou may see it as teaching another batch. We see it as someone helping us become ready for life.\n\nOne day, we\'ll walk out of these classrooms and build lives of our own.\n\nAnd perhaps, in a difficult moment, we\'ll remember something you taught us—and find the strength to keep going.\n\nYou might not be there to see how far we go, but a part of your guidance will go with us.\n\nThank you for being part of the people we\'re becoming. ❤️',
-      actionLabel: 'Continue to the invitation',
-    },
+  
+{
+  kicker: 'A Note of Gratitude',
+  title: 'We’re Glad You’re Part of Our Journey.',
+  body: 'Dear {name}, ❤️\n\nWe came to college to build our future, never knowing how much people like you would shape it.\n\nYou guided us when we were lost, corrected us when we were wrong, and believed in us when we doubted ourselves.\n\nWhat may have felt like an ordinary day of teaching to you became a small step towards the people we’re becoming.\n\nSome thank-yous are hard to say, but today, we hope you feel them. ❤️',
+  actionLabel: 'Continue',
+},
+{
+  kicker: 'Beyond the Classroom',
+  title: 'One Day, We’ll Understand It All.',
+  body: 'Dear {name}, ❤️\n\nBatches may come and go, but the lessons you leave behind stay with us.\n\nWe might forget a few lectures, but we’ll remember who stood by us, believed in us, and prepared us for a world we were still learning to face.\n\nSomeday, when we step beyond these classrooms, your words may give us strength when we need it most.\n\nYou may never see how far we go, but a part of your guidance will go with us. Thank you for shaping more than our education—you’ve helped shape who we become. ❤️',
+  actionLabel: 'Continue to the invitation',
+},
   ],
 };
