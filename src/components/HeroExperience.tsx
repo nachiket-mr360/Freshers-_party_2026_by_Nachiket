@@ -5,8 +5,8 @@ import { OpeningOverlay } from './OpeningOverlay';
 /**
  * Hero stage overlay.
  *
- * Experimental opening: tap starts the local soundtrack; countdown / ready copy
- * are driven from audio.currentTime. The extruded title is in the WebGL canvas.
+ * Opening: tap starts the local soundtrack; countdown / ready copy follow
+ * audio.currentTime. The extruded title is in the WebGL canvas.
  */
 export function HeroExperience() {
   const { goToStage, completeIntro } = useExperience();
@@ -25,8 +25,6 @@ export function HeroExperience() {
       <p className="hero-subline">
         {eventInfo.dateLabel} · {eventInfo.venue.name}, {eventInfo.venue.campus}
       </p>
-
-      <div className="hero-spacer" aria-hidden="true" />
 
       <OpeningOverlay onEnter={enter} />
     </section>

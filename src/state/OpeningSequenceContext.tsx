@@ -19,17 +19,19 @@ interface OpeningSequenceValue {
   started: boolean;
   titleVisible: boolean;
   digit: OpeningDigit;
+  showLadies: boolean;
   showReady: boolean;
   showLetsGo: boolean;
   flash: boolean;
-  audioBlocked: boolean;
-  start: () => void;
+  playbackError: string | null;
+  start: () => Promise<void>;
   skip: () => void;
 }
 
 const OpeningSequenceContext = createContext<OpeningSequenceValue | null>(null);
 
 function digitForTime(t: number): OpeningDigit {
+  if (t >= OPENING_CUES.ladies) return null;
   if (t >= OPENING_CUES.one) return 1;
   if (t >= OPENING_CUES.two) return 2;
   if (t >= OPENING_CUES.three) return 3;
@@ -42,25 +44,34 @@ export function OpeningSequenceProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const rafRef = useRef(0);
   const titleAtRef = useRef<number | null>(null);
-  const fallbackOriginRef = useRef<number | null>(null);
+  const startingRef = useRef(false);
+  const playingRef = useRef(false);
 
   const [started, setStarted] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [digit, setDigit] = useState<OpeningDigit>(null);
+  const [showLadies, setShowLadies] = useState(false);
   const [showReady, setShowReady] = useState(false);
   const [showLetsGo, setShowLetsGo] = useState(false);
   const [flash, setFlash] = useState(false);
-  const [audioBlocked, setAudioBlocked] = useState(false);
+  const [playbackError, setPlaybackError] = useState<string | null>(null);
   const lastDigitRef = useRef<OpeningDigit>(null);
+  const lastLadiesRef = useRef(false);
   const lastReadyRef = useRef(false);
   const letsGoSentRef = useRef(false);
 
   const applyTime = useCallback((t: number) => {
-    const nextDigit = t >= OPENING_CUES.title ? null : digitForTime(t);
+    const nextDigit = digitForTime(t);
     if (nextDigit !== lastDigitRef.current) {
       lastDigitRef.current = nextDigit;
       setDigit(nextDigit);
       if (nextDigit) setFlash(true);
+    }
+
+    const ladies = t >= OPENING_CUES.ladies && t < OPENING_CUES.title;
+    if (ladies !== lastLadiesRef.current) {
+      lastLadiesRef.current = ladies;
+      setShowLadies(ladies);
     }
 
     const ready = t >= OPENING_CUES.ready && t < OPENING_CUES.title;
@@ -89,29 +100,34 @@ export function OpeningSequenceProvider({ children }: { children: ReactNode }) {
 
   const tick = useCallback(() => {
     const audio = audioRef.current;
-    let t = 0;
     if (audio && !audio.paused && !audio.ended) {
-      t = audio.currentTime;
-    } else if (fallbackOriginRef.current !== null) {
-      t = (performance.now() - fallbackOriginRef.current) / 1000;
-    } else {
-      rafRef.current = requestAnimationFrame(tick);
-      return;
+      applyTime(audio.currentTime);
     }
-    applyTime(t);
     rafRef.current = requestAnimationFrame(tick);
   }, [applyTime]);
 
-  useEffect(() => {
-    const el = new Audio(OPENING_AUDIO_SRC);
+  const ensureAudio = useCallback(() => {
+    if (audioRef.current) return audioRef.current;
+    const el = new Audio();
     el.preload = 'auto';
     el.loop = false;
+    el.muted = false;
+    el.volume = 1;
+    el.setAttribute('playsinline', 'true');
+    el.src = OPENING_AUDIO_SRC;
     audioRef.current = el;
+    return el;
+  }, []);
+
+  useEffect(() => {
     return () => {
       cancelAnimationFrame(rafRef.current);
-      el.pause();
-      el.removeAttribute('src');
-      el.load();
+      const el = audioRef.current;
+      if (el) {
+        el.pause();
+        el.removeAttribute('src');
+        el.load();
+      }
       audioRef.current = null;
     };
   }, []);
@@ -119,6 +135,7 @@ export function OpeningSequenceProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (stage === 'hero') return;
     audioRef.current?.pause();
+    playingRef.current = false;
     cancelAnimationFrame(rafRef.current);
   }, [stage]);
 
@@ -128,67 +145,86 @@ export function OpeningSequenceProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(id);
   }, [flash]);
 
-  const finishWithoutAudio = useCallback(() => {
-    setTitleVisible(true);
-    titleAtRef.current = performance.now();
-    setDigit(null);
-    setShowReady(false);
-    fallbackOriginRef.current = performance.now() - OPENING_CUES.title * 1000;
-  }, []);
+  const start = useCallback(async () => {
+    if (playingRef.current || startingRef.current) return;
+    startingRef.current = true;
 
-  const start = useCallback(() => {
-    if (started) return;
-    setStarted(true);
+    const audio = ensureAudio();
+    audio.muted = false;
+    audio.volume = 1;
 
-    if (reducedMotion) {
-      setAudioBlocked(true);
-      setTitleVisible(true);
-      setShowLetsGo(true);
-      setDigit(null);
-      setShowReady(false);
-      return;
+    try {
+      if (audio.currentTime > 0) audio.currentTime = 0;
+      const playResult = audio.play();
+      if (playResult) await playResult;
+      if (audio.paused) {
+        throw new Error('Audio remained paused after play()');
+      }
+
+      playingRef.current = true;
+      setPlaybackError(null);
+      setStarted(true);
+
+      if (reducedMotion) {
+        setTitleVisible(true);
+        setShowLetsGo(true);
+        setDigit(null);
+        setShowLadies(false);
+        setShowReady(false);
+        return;
+      }
+
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(tick);
+    } catch (err) {
+      playingRef.current = false;
+      setStarted(false);
+      const detail = err instanceof Error ? err.message : 'Playback failed';
+      setPlaybackError(`Could not start the soundtrack (${detail}). Tap to try again.`);
+    } finally {
+      startingRef.current = false;
     }
-
-    const audio = audioRef.current;
-    fallbackOriginRef.current = performance.now();
-    rafRef.current = requestAnimationFrame(tick);
-
-    if (!audio) {
-      setAudioBlocked(true);
-      return;
-    }
-
-    const play = audio.play();
-    if (play && typeof play.then === 'function') {
-      play.catch(() => {
-        setAudioBlocked(true);
-        // Keep the visual clock running from first tap.
-      });
-    }
-  }, [reducedMotion, started, tick]);
+  }, [ensureAudio, reducedMotion, tick]);
 
   const skip = useCallback(() => {
     const audio = audioRef.current;
     if (audio) audio.pause();
+    playingRef.current = false;
+    cancelAnimationFrame(rafRef.current);
     setStarted(true);
-    setAudioBlocked(true);
-    finishWithoutAudio();
+    setTitleVisible(true);
+    setDigit(null);
+    setShowLadies(false);
+    setShowReady(false);
     setShowLetsGo(true);
-  }, [finishWithoutAudio]);
+    titleAtRef.current = performance.now();
+  }, []);
 
   const value = useMemo<OpeningSequenceValue>(
     () => ({
       started,
       titleVisible,
       digit,
+      showLadies,
       showReady,
       showLetsGo,
       flash,
-      audioBlocked,
+      playbackError,
       start,
       skip,
     }),
-    [started, titleVisible, digit, showReady, showLetsGo, flash, audioBlocked, start, skip],
+    [
+      started,
+      titleVisible,
+      digit,
+      showLadies,
+      showReady,
+      showLetsGo,
+      flash,
+      playbackError,
+      start,
+      skip,
+    ],
   );
 
   return (

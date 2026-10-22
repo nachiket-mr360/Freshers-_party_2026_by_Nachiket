@@ -353,29 +353,38 @@ button {
 /* The visible title is real 3D in the canvas; the overlay fills the viewport
    with the subline at the top and the enter control toward the bottom, leaving
    the centre for the rotating typography. */
+/* The 3D title is in the canvas; HTML opening copy is centred over it. */
 .stage--hero {
+  position: relative;
   width: 100%;
-  min-height: min(82vh, 760px);
-  justify-content: space-between;
-  gap: clamp(1.5rem, 4vh, 3rem);
+  min-height: calc(100dvh - 6.5rem);
+  justify-content: center;
+  align-items: center;
+  gap: 0;
 }
 
 .hero-subline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
   color: var(--ink-dim);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-size: clamp(0.72rem, 2.2vw, 0.9rem);
+  text-align: center;
+  pointer-events: none;
 }
 
 .hero-spacer {
-  flex: 1 1 auto;
-  width: 100%;
-  min-height: 20vh;
+  display: none;
 }
 
 .enter-cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.7rem;
   padding: 1rem 1.8rem;
   border-radius: 999px;
@@ -420,14 +429,29 @@ button {
 }
 
 .opening {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 6;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  padding: 4.5rem 1rem 3.5rem;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+.opening__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
   width: min(92vw, 720px);
   pointer-events: auto;
-  z-index: 4;
+  text-align: center;
 }
 
 .opening__flash {
@@ -444,26 +468,40 @@ button {
 }
 
 .opening__digit {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(4.5rem, 22vw, 10rem);
   line-height: 0.9;
   letter-spacing: -0.04em;
+  text-align: center;
   color: #e8ecff;
   text-shadow: 0 0 40px rgba(123, 92, 255, 0.55), 0 0 80px rgba(47, 125, 255, 0.35);
   animation: opening-pop 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .opening__ready {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.15rem, 5.2vw, 2.4rem);
-  line-height: 1.2;
-  text-wrap: balance;
-  max-width: 16ch;
+  line-height: 1.15;
+  text-align: center;
   color: #e8ecff;
   text-shadow: 0 0 32px rgba(123, 92, 255, 0.5);
   animation: opening-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.opening__ready-line {
+  margin: 0;
+  font-size: clamp(1.05rem, 4.6vw, 2.1rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.opening__ready-line--punch {
+  margin-top: 0.45rem;
+  font-size: clamp(1.2rem, 5.4vw, 2.5rem);
 }
 
 .opening__note {
@@ -471,6 +509,16 @@ button {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-faint);
+  max-width: 36ch;
+}
+
+.opening__skip {
+  position: absolute;
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  z-index: 7;
 }
 
 @keyframes opening-pop {
@@ -1132,12 +1180,11 @@ button {
   }
 
   .stage--hero {
-    min-height: 78vh;
-    gap: 0.75rem;
+    min-height: calc(100dvh - 4.5rem);
   }
 
-  .hero-spacer {
-    min-height: 8vh;
+  .opening__digit {
+    font-size: clamp(3rem, 18vh, 6rem);
   }
 }
 
