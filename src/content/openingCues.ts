@@ -1,20 +1,25 @@
 /**
- * Cue times from `public/music/hero entry.mp3`
- * (identical bytes to `hero entry.mpeg`; .mp3 so browsers treat it as audio).
+ * Opening cues from `audio.currentTime` of `public/music/hero entry.mp3`.
  *
- * Duration ≈ 8.61s. Onsets at 1.91 / 2.29 / 2.68 s → 3–2–1.
- * Energy returns ~4.50 s (spoken lead-in) and ~5.30 s (second vocal punch).
- * Drop cluster ~6.20 s.
+ * Countdown and Ladies timings are locked (working).
+ * "Are you ready?!" at 4.875 s (4.475 s burst + 0.4 s). Hold through
+ * ~5.80 s. Title waits TITLE_DELAY_AFTER_READY_S after that.
  */
 export const OPENING_AUDIO_FILE = 'hero entry.mp3';
 
 export const OPENING_AUDIO_SRC = `${import.meta.env.BASE_URL}music/${encodeURIComponent(OPENING_AUDIO_FILE)}`;
 
+/** Seconds to wait after "Are you ready?!" finishes before the 3D title. */
+export const TITLE_DELAY_AFTER_READY_S = 1.5;
+
 export const OPENING_CUES = {
-  three: 1.91,
-  two: 2.29,
-  one: 2.68,
-  ladies: 4.5,
-  ready: 5.3,
-  title: 6.2,
+  three: 0,
+  two: 0.7,
+  one: 1.4,
+  countdownEnd: 2.1,
+  ladies: 2.1,
+  /** 4.475 s onset + 0.4 s so the line hits with the spoken "Are you ready?!" */
+  ready: 4.475,
+  readyEnd: 6.5,
+  title: 6.5 + TITLE_DELAY_AFTER_READY_S,
 } as const;

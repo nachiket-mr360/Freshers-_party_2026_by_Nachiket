@@ -31,7 +31,7 @@ interface OpeningSequenceValue {
 const OpeningSequenceContext = createContext<OpeningSequenceValue | null>(null);
 
 function digitForTime(t: number): OpeningDigit {
-  if (t >= OPENING_CUES.ladies) return null;
+  if (t >= OPENING_CUES.countdownEnd || t >= OPENING_CUES.ladies) return null;
   if (t >= OPENING_CUES.one) return 1;
   if (t >= OPENING_CUES.two) return 2;
   if (t >= OPENING_CUES.three) return 3;
@@ -68,13 +68,13 @@ export function OpeningSequenceProvider({ children }: { children: ReactNode }) {
       if (nextDigit) setFlash(true);
     }
 
-    const ladies = t >= OPENING_CUES.ladies && t < OPENING_CUES.title;
+    const ladies = t >= OPENING_CUES.ladies && t < OPENING_CUES.ready;
     if (ladies !== lastLadiesRef.current) {
       lastLadiesRef.current = ladies;
       setShowLadies(ladies);
     }
 
-    const ready = t >= OPENING_CUES.ready && t < OPENING_CUES.title;
+    const ready = t >= OPENING_CUES.ready && t < OPENING_CUES.readyEnd;
     if (ready !== lastReadyRef.current) {
       lastReadyRef.current = ready;
       setShowReady(ready);
@@ -175,6 +175,7 @@ export function OpeningSequenceProvider({ children }: { children: ReactNode }) {
       }
 
       cancelAnimationFrame(rafRef.current);
+      applyTime(audio.currentTime);
       rafRef.current = requestAnimationFrame(tick);
     } catch (err) {
       playingRef.current = false;
@@ -184,7 +185,7 @@ export function OpeningSequenceProvider({ children }: { children: ReactNode }) {
     } finally {
       startingRef.current = false;
     }
-  }, [ensureAudio, reducedMotion, tick]);
+  }, [applyTime, ensureAudio, reducedMotion, tick]);
 
   const skip = useCallback(() => {
     const audio = audioRef.current;

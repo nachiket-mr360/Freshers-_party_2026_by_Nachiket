@@ -27,17 +27,22 @@ export function OpeningOverlay({ onEnter }: { onEnter: () => void }) {
           </button>
         )}
 
-        {started && digit && !showLetsGo && (
+        {started && digit && !showLadies && !showReady && !showLetsGo && (
           <p className="opening__digit" aria-live="assertive">
             {digit}
           </p>
         )}
 
-        {started && showLadies && !showLetsGo && (
-          <div className="opening__ready" aria-live="assertive">
-            <p className="opening__ready-line">Ladies and Gentlemen</p>
-            {showReady && <p className="opening__ready-line opening__ready-line--punch">Are you ready?!</p>}
-          </div>
+        {started && showLadies && !showReady && !showLetsGo && (
+          <p className="opening__ready opening__ready-line" aria-live="assertive">
+            Ladies and Gentlemen
+          </p>
+        )}
+
+        {started && showReady && !showLetsGo && (
+          <p className="opening__ready opening__ready-line opening__ready-line--punch" aria-live="assertive">
+            Are you ready?!
+          </p>
         )}
 
         {showLetsGo && (
