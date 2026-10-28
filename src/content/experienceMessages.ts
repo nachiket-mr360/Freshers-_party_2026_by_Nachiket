@@ -83,12 +83,12 @@ export const experiences: Record<Category, StageMessage[]> = {
   faculty: [
   
 
-  {
+{
 kicker: 'A Little Faculty Flashback',
-title: 'Smile If You’ve Been There! 😂',
-body: 'Dear {name}, ❤️\n\nSmile if you enjoyed your journey in this department. 😊\n\nSmile if you survived endless paperwork, reports, and deadlines! 😂\n\nSmile if a student asked a difficult question and you said, “I’ll explain it in the next class!” 😅\n\nSmile if you’ve said “Submit it tomorrow” so many times that tomorrow never ends! 🤣\n\nAnd smile if, despite all the chaos, these students have given you countless memories, laughter, and reasons to love teaching. ❤️\n\nBecause behind every lecture, every scolding, and every deadline, there’s a teacher who helped shape someone’s future. Thank you for being part of ours. ❤️',
+title: 'Come On, Sir/Madam… Smile! 😂',
+body: 'Dear {name}, ❤️\n\nSmile if you joined as a teacher but accidentally became a paperwork expert, attendance manager, exam-duty officer, and deadline warrior! 😂📚\n\nSmile if a student asked a question and you replied, “We’ll discuss it tomorrow!” 🤣\n\nSmile if you’ve asked, “Any doubts?” and the whole class suddenly went silent! 🤐😂\n\nBehind all the lectures, deadlines, and scoldings are memories and students who’ll never forget you. ❤️\n\nNow forget the paperwork for a moment and give us that faculty smile! 😂❤️',
 actionLabel: 'Relive the memories',
-  },
+},
 
   {
 kicker: 'The Celebration Begins',
