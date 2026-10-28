@@ -82,17 +82,19 @@ export const experiences: Record<Category, StageMessage[]> = {
   ],
   faculty: [
   
+
+  {
+kicker: 'A Little Faculty Flashback',
+title: 'Smile If You’ve Been There! 😂',
+body: 'Dear {name}, ❤️\n\nSmile if you enjoyed your journey in this department. 😊\n\nSmile if you survived endless paperwork, reports, and deadlines! 😂\n\nSmile if a student asked a difficult question and you said, “I’ll explain it in the next class!” 😅\n\nSmile if you’ve said “Submit it tomorrow” so many times that tomorrow never ends! 🤣\n\nAnd smile if, despite all the chaos, these students have given you countless memories, laughter, and reasons to love teaching. ❤️\n\nBecause behind every lecture, every scolding, and every deadline, there’s a teacher who helped shape someone’s future. Thank you for being part of ours. ❤️',
+actionLabel: 'Relive the memories',
+  },
 {
-  kicker: 'A Note of Gratitude',
-  title: 'We’re Glad You’re Part of Our Journey.',
-  body: 'Dear {name}, ❤️\n\nWe came to college to build our future, never knowing how much people like you would shape it.\n\nYou guided us when we were lost, corrected us when we were wrong, and believed in us when we doubted ourselves.\n\nWhat may have felt like an ordinary day of teaching to you became a small step towards the people we’re becoming.\n\nSome thank-yous are hard to say, but today, we hope you feel them. ❤️',
-  actionLabel: 'Continue',
-},
-{
-  kicker: 'Beyond the Classroom',
-  title: 'One Day, We’ll Understand It All.',
-  body: 'Dear {name}, ❤️\n\nBatches may come and go, but the lessons you leave behind stay with us.\n\nWe might forget a few lectures, but we’ll remember who stood by us, believed in us, and prepared us for a world we were still learning to face.\n\nSomeday, when we step beyond these classrooms, your words may give us strength when we need it most.\n\nYou may never see how far we go, but a part of your guidance will go with us. Thank you for shaping more than our education—you’ve helped shape who we become. ❤️',
-  actionLabel: 'Continue to the invitation',
+  {
+kicker: 'The Celebration Begins',
+title: 'You Are Part of Our Celebration! ❤️',
+body: 'Dear {name}, ❤️\n\nFrom managing our endless questions to guiding us through every challenge, you’ve been an important part of our journey.\n\nAnd today, it’s our turn to make you feel special! ✨\n\nWith immense joy, pride, and excitement, we warmly welcome you to NAVA-AGAM 2K26 — BCA Freshers’ Party! 🎉❤️\n\nLet’s celebrate new beginnings, create beautiful memories, and make this day unforgettable together!\n\nYour presence will make our celebration even more special. ❤️',
+actionLabel: 'Explore the Invitation',
 },
   ],
 };
