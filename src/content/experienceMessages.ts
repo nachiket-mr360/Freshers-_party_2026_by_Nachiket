@@ -89,12 +89,12 @@ title: 'Smile If You’ve Been There! 😂',
 body: 'Dear {name}, ❤️\n\nSmile if you enjoyed your journey in this department. 😊\n\nSmile if you survived endless paperwork, reports, and deadlines! 😂\n\nSmile if a student asked a difficult question and you said, “I’ll explain it in the next class!” 😅\n\nSmile if you’ve said “Submit it tomorrow” so many times that tomorrow never ends! 🤣\n\nAnd smile if, despite all the chaos, these students have given you countless memories, laughter, and reasons to love teaching. ❤️\n\nBecause behind every lecture, every scolding, and every deadline, there’s a teacher who helped shape someone’s future. Thank you for being part of ours. ❤️',
 actionLabel: 'Relive the memories',
   },
-{
+
   {
 kicker: 'The Celebration Begins',
 title: 'You Are Part of Our Celebration! ❤️',
 body: 'Dear {name}, ❤️\n\nFrom managing our endless questions to guiding us through every challenge, you’ve been an important part of our journey.\n\nAnd today, it’s our turn to make you feel special! ✨\n\nWith immense joy, pride, and excitement, we warmly welcome you to NAVA-AGAM 2K26 — BCA Freshers’ Party! 🎉❤️\n\nLet’s celebrate new beginnings, create beautiful memories, and make this day unforgettable together!\n\nYour presence will make our celebration even more special. ❤️',
 actionLabel: 'Explore the Invitation',
-},
+  }
   ],
 };
